@@ -1,0 +1,3 @@
+Thong tin: id=1, name='Bich Ngoc', birthDate=10/02/2003, address='adfsd', height=100.0, weight=342.0
+studentId='abfdshdhdh', school='adfsa', startYear=2020, gpa=8.0, level=Gioi
+
