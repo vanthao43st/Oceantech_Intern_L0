@@ -59,13 +59,7 @@ public class ConsoleUI {
                                     StudentArrayController.createStudentById(studentArrays);
                                     break;
                                 case 2:
-                                    Student foundStudent = StudentArrayController.findStudentById(studentArrays);
-                                    if (foundStudent == null) {
-                                        System.out.println("Khong co du lieu phu hop.");
-                                        break;
-                                    } else {
-                                        System.out.println(STR."Sinh vien can tim: \{foundStudent}");
-                                    }
+                                    StudentArrayController.findStudentById(studentArrays);
                                     break;
                                 case 3:
                                     StudentArrayController.updateStudentById(studentArrays);
@@ -74,7 +68,6 @@ public class ConsoleUI {
                                     StudentArrayController.deleteStudentById(studentArrays);
                                     break;
                                 case 5:
-                                    System.out.println("\nDanh sach sinh vien: ");
                                     StudentArrayController.displayStudentList(studentArrays);
                                     break;
                                 case 6:
@@ -122,13 +115,7 @@ public class ConsoleUI {
                                     StudentListController.createStudentById(studentLists);
                                     break;
                                 case 2:
-                                    Student foundStudent = StudentListController.findStudentById(studentLists);
-                                    if (foundStudent == null) {
-                                        System.out.println("Khong co du lieu phu hop.");
-                                        break;
-                                    } else {
-                                        System.out.println(STR."Sinh vien can tim: \{foundStudent}");
-                                    }
+                                    StudentListController.findStudentById(studentLists);
                                     break;
                                 case 3:
                                     StudentListController.updateStudentById(studentLists);

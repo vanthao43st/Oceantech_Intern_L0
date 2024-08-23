@@ -1,3 +1,6 @@
-Thong tin: id=1, name='Bich Ngoc', birthDate=10/02/2003, address='adfsd', height=100.0, weight=342.0
-studentId='abfdshdhdh', school='adfsa', startYear=2020, gpa=8.0, level=Gioi
+Thong tin: id=1, name='abc', birthDate=10/02/2000, address='1000', height=200.0, weight=200.0
+studentId='101ksksks9', school='abc', startYear=2000, gpa=5.0, level=Trung binh
+
+Thong tin: id=2, name='Bich Ngoc', birthDate=05/07/2003, address='Chinh Ly, Ly Nhan, Ha Nam', height=155.0, weight=45.0
+studentId='haui050703', school='haui', startYear=2022, gpa=9.0, level=Xuat sac
 

@@ -38,7 +38,7 @@ public class Validation {
             LocalDate date = LocalDate.parse(birthDate, formatter);
 
             if (date.getYear() < LIMITED_YEAR || date.getYear() > LocalDateTime.now().getYear()) {
-                System.out.println(STR."Nam sinh phai nam trong khoang 1900 - \{LocalDateTime.now().getYear()}");
+                System.out.println("Nam sinh phai nam trong khoang (1900 - " + LocalDateTime.now().getYear() + "). ");
                 return false;
             }
         } catch (DateTimeParseException | NumberFormatException e) {

@@ -1,5 +1,7 @@
 import view.ConsoleUI;
 
-public static void main(String[] args) {
-    new ConsoleUI();
+public class Main {
+    public static void main(String[] args) {
+        new ConsoleUI();
+    }
 }
