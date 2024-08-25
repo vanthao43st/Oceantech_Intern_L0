@@ -35,7 +35,7 @@ public class ConsoleUI {
                     Person.setIdCounter(1);
                     System.out.println("Ban da chon mang tinh. Vui long lua chon chuc nang!");
                     while (true) {
-                        System.out.println("\n**********");
+                        System.out.println("\n**********Mang tinh**********");
                         System.out.println("1. Tao sinh vien.");
                         System.out.println("2. Tim kiem sinh vien theo ID.");
                         System.out.println("3. Cap nhat sinh vien theo ID.");
@@ -45,7 +45,7 @@ public class ConsoleUI {
                         System.out.println("7. Hien thi % diem trung binh cua sinh vien.");
                         System.out.println("8. Hien thi danh sach sinh vien theo hoc luc.");
                         System.out.println("0. Thoat.");
-                        System.out.println("**********");
+                        System.out.println("*****************************");
 
                         try {
                             System.out.print("Lua chon cua ban: ");
@@ -91,7 +91,7 @@ public class ConsoleUI {
                     Person.setIdCounter(1);
                     System.out.println("Ban da chon mang dong. Vui long lua chon chuc nang!");
                     while (true) {
-                        System.out.println("\n**********");
+                        System.out.println("\n**********Mang dong**********");
                         System.out.println("1. Tao sinh vien.");
                         System.out.println("2. Tim kiem sinh vien theo ID.");
                         System.out.println("3. Cap nhat sinh vien theo ID.");
@@ -101,7 +101,7 @@ public class ConsoleUI {
                         System.out.println("7. Hien thi % diem trung binh cua sinh vien.");
                         System.out.println("8. Hien thi danh sach sinh vien theo hoc luc.");
                         System.out.println("0. Thoat.");
-                        System.out.println("**********");
+                        System.out.println("*****************************");
 
                         try {
                             System.out.print("Lua chon cua ban: ");

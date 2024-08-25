@@ -24,7 +24,7 @@ public class StudentListController {
         String address = Input.inputAddress();
         double height = Input.inputHeight();
         double weight = Input.inputWeight();
-        String studentId = Input.inputStudentId();
+        String studentId = Input.inputStudentIdList(studentLists);
         String school = Input.inputSchool();
         int startYear = Input.inputStartYear();
         double gpa = Input.inputGpa();
@@ -129,7 +129,7 @@ public class StudentListController {
                             weight = Input.inputWeight();
                             break;
                         case 6:
-                            studentId = Input.inputStudentId();
+                            studentId = Input.inputStudentIdList(studentLists);
                             break;
                         case 7:
                             school = Input.inputSchool();

@@ -21,7 +21,7 @@ public class StudentArrayController {
         String address = Input.inputAddress();
         double height = Input.inputHeight();
         double weight = Input.inputWeight();
-        String studentId = Input.inputStudentId();
+        String studentId = Input.inputStudentIdArray(studentLists);
         String school = Input.inputSchool();
         int startYear = Input.inputStartYear();
         double gpa = Input.inputGpa();
@@ -130,7 +130,7 @@ public class StudentArrayController {
                             weight = Input.inputWeight();
                             break;
                         case 6:
-                            studentId = Input.inputStudentId();
+                            studentId = Input.inputStudentIdArray(studentLists);
                             break;
                         case 7:
                             school = Input.inputSchool();
@@ -166,7 +166,6 @@ public class StudentArrayController {
 
         System.out.print("Sinh vien sau khi duoc sua: " + foundStudent);
     }
-
 
     public static void deleteStudentById(Student[] studentLists) {
         Student foundStudent = findStudentById(studentLists);

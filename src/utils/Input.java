@@ -1,9 +1,13 @@
 package utils;
 
 import constant.LEVEL;
+import model.Student;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
+
+import static view.ConsoleUI.studentCount;
 
 public class Input {
     private static Scanner sc = new Scanner(System.in);
@@ -86,12 +90,83 @@ public class Input {
         return weight;
     }
 
-    public static String inputStudentId() {
+    public static String inputStudentIdArray(Student[] studentLists) {
+        boolean checkStudentIdRepeat = false;
+
         System.out.print("Nhap ma sinh vien (10 ki tu): ");
         String studentId = sc.nextLine();
-        while (!Validation.validateStudentId(studentId)) {
-            System.out.print("Ma sinh vien khong hop le (Ma sinh vien khong trong va phai dung 10 ki tu). Vui long nhap lai! ");
+        if (studentLists != null && studentCount > 0){
+            for (Student student : studentLists) {
+                if (student != null) {
+                    if (studentId.equals(student.getStudentId())) {
+                        checkStudentIdRepeat = true;
+                        break;
+                    }
+                }
+            }
+        }
+
+        while (!Validation.validateStudentId(studentId) || checkStudentIdRepeat) {
+            if (checkStudentIdRepeat) {
+                System.out.print("Ma sinh vien da bi trung. Vui long nhap lai! ");
+                checkStudentIdRepeat = false;
+            } else if (!Validation.validateStudentId(studentId)) {
+                System.out.print("Ma sinh vien khong hop le (Ma sinh vien khong trong, khong trung va phai dung 10 ki tu). Vui long nhap lai! ");
+            }
+
             studentId = sc.nextLine();
+
+            if (studentLists != null && studentCount > 0){
+                for (Student student : studentLists) {
+                    if (student != null) {
+                        if (studentId.equals(student.getStudentId())) {
+                            checkStudentIdRepeat = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        return studentId;
+    }
+
+
+    public static String inputStudentIdList(ArrayList<Student> studentLists) {
+
+        boolean checkStudentIdRepeat = false;
+
+        System.out.print("Nhap ma sinh vien (10 ki tu): ");
+        String studentId = sc.nextLine();
+        if (studentLists != null && !studentLists.isEmpty()) {
+            for (Student student : studentLists) {
+                if (student != null) {
+                    if (studentId.equals(student.getStudentId())) {
+                        checkStudentIdRepeat = true;
+                    }
+                }
+            }
+        }
+
+        while (!Validation.validateStudentId(studentId) || checkStudentIdRepeat) {
+            if (checkStudentIdRepeat) {
+                System.out.print("Ma sinh vien da bi trung. Vui long nhap lai! ");
+                checkStudentIdRepeat = false;
+            } else if (!Validation.validateStudentId(studentId)) {
+                System.out.print("Ma sinh vien khong hop le (Ma sinh vien khong trong, khong trung va phai dung 10 ki tu). Vui long nhap lai! ");
+            }
+
+            studentId = sc.nextLine();
+
+            if (studentLists != null && !studentLists.isEmpty()) {
+                for (Student student : studentLists) {
+                    if (student != null) {
+                        if (studentId.equals(student.getStudentId())) {
+                            checkStudentIdRepeat = true;
+                        }
+                    }
+                }
+            }
         }
 
         return studentId;
@@ -207,7 +282,7 @@ public class Input {
 
     public static String inputLevel() {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap hoc luc cua sinh vien: ");
+        System.out.print("Nhap hoc luc cua sinh vien (Kem, Yeu, Trung binh, Kha, Gioi, Xuat sac): ");
         String academicAbility = sc.nextLine();
         while (!academicAbility.equalsIgnoreCase(LEVEL.KEM.getVietnamese())
                 && !academicAbility.equalsIgnoreCase(LEVEL.YEU.getVietnamese())
