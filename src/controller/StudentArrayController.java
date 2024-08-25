@@ -267,18 +267,8 @@ public class StudentArrayController {
             System.out.println("Danh sach sinh vien rong. Khong the hien thi sinh vien theo hoc luc.");
             return;
         }
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Nhap hoc luc cua sinh vien: ");
-        String academicAbility = sc.nextLine();
-        while (!academicAbility.equalsIgnoreCase(LEVEL.KEM.getVietnamese())
-                && !academicAbility.equalsIgnoreCase(LEVEL.YEU.getVietnamese())
-                && !academicAbility.equalsIgnoreCase(LEVEL.TRUNG_BINH.getVietnamese())
-                && !academicAbility.equalsIgnoreCase(LEVEL.KHA.getVietnamese())
-                && !academicAbility.equalsIgnoreCase(LEVEL.GIOI.getVietnamese())
-                && !academicAbility.equalsIgnoreCase(LEVEL.XUAT_SAC.getVietnamese())) {
-            System.out.print("Hoc luc khong dung (Kem, Yeu, Trung binh, Kha, Gioi, Xuat sac). ");
-            academicAbility = sc.nextLine();
-        }
+
+        String academicAbility = Input.inputLevel();
 
         System.out.println("Danh sach sinh vien co hoc luc '" + academicAbility.toLowerCase() + "': ");
         int count = 0;
@@ -293,7 +283,7 @@ public class StudentArrayController {
         }
 
         if (count == studentCount) {
-            System.out.println("Khong co sinh vien nao co hoc luc '" + academicAbility.toLowerCase() + "'");
+            System.out.println("Khong co sinh vien nao co hoc luc '" + academicAbility.toLowerCase() + "'.");
             return;
         }
     }

@@ -1,5 +1,7 @@
 package utils;
 
+import constant.LEVEL;
+
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
@@ -201,5 +203,22 @@ public class Input {
         System.out.println("10. Thoat (khong cap nhat du lieu).");
         System.out.println("0. Xong");
         System.out.println("-------------------------------------------------");
+    }
+
+    public static String inputLevel() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Nhap hoc luc cua sinh vien: ");
+        String academicAbility = sc.nextLine();
+        while (!academicAbility.equalsIgnoreCase(LEVEL.KEM.getVietnamese())
+                && !academicAbility.equalsIgnoreCase(LEVEL.YEU.getVietnamese())
+                && !academicAbility.equalsIgnoreCase(LEVEL.TRUNG_BINH.getVietnamese())
+                && !academicAbility.equalsIgnoreCase(LEVEL.KHA.getVietnamese())
+                && !academicAbility.equalsIgnoreCase(LEVEL.GIOI.getVietnamese())
+                && !academicAbility.equalsIgnoreCase(LEVEL.XUAT_SAC.getVietnamese())) {
+            System.out.print("Hoc luc khong dung (Kem, Yeu, Trung binh, Kha, Gioi, Xuat sac). ");
+            academicAbility = sc.nextLine();
+        }
+
+        return academicAbility;
     }
 }
