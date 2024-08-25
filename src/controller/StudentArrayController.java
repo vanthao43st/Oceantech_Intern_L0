@@ -300,7 +300,6 @@ public class StudentArrayController {
 
     public static void writeToFile(Student[] studentLists) {
         if (studentCount == 0) {
-            System.out.println("Mang tinh: Danh sach sinh vien rong. Khong co sinh vien nao duoc ghi ra file.");
             return;
         }
 
@@ -312,7 +311,6 @@ public class StudentArrayController {
                     writer.newLine();
                 }
             }
-            System.out.println("Mang tinh: Danh sach sinh vien da duoc ghi vao file.");
         } catch (IOException e) {
             System.out.println("Loi khi ghi du lieu vao file: " + e.getMessage());
         }

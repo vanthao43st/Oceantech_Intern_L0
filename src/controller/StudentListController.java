@@ -288,7 +288,6 @@ public class StudentListController {
 
     public static void writeToFile(ArrayList<Student> studentLists) {
         if (studentLists.isEmpty()) {
-            System.out.println("Mang dong: Danh sach sinh vien rong. Khong co sinh vien nao duoc ghi ra file.");
             return;
         }
 
@@ -300,7 +299,6 @@ public class StudentListController {
                     writer.newLine();
                 }
             }
-            System.out.println("Mang dong: Danh sach sinh vien da duoc ghi vao file.");
         } catch (IOException e) {
             System.out.println("Loi khi ghi du lieu vao file: " + e.getMessage());
         }
