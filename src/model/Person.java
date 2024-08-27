@@ -21,8 +21,13 @@ public class Person {
         this.weight = weight;
     }
 
-    public static long getIdCounter() {
-        return idCounter;
+    public Person(Person other) {
+        this.id = other.id;
+        this.name = other.name;
+        this.birthDate = other.birthDate;
+        this.address = other.address;
+        this.height = other.height;
+        this.weight = other.weight;
     }
 
     public static void setIdCounter(long idCounter) {

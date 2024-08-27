@@ -1,10 +1,12 @@
 package constant;
 
+import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
 public class Constant {
     public static final int MAX_NAME_LENGTH = 100;
-    public static final int LIMITED_YEAR = 1900;
+    public static final int MIN_YEAR = 1900;
+    public static final int MAX_YEAR = LocalDateTime.now().getYear();
     public static final int MAX_ADDRESS_LENGTH = 300;
     public static final int MIN_HEIGHT = 50;
     public static final int MAX_HEIGHT = 300 ;

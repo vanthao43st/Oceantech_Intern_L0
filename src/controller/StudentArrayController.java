@@ -5,8 +5,6 @@ import model.Student;
 import utils.Input;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 import static constant.Constant.FILENAME;
 import static constant.Constant.MAX_STUDENT;
@@ -15,22 +13,13 @@ import static view.ConsoleUI.studentCount;
 public class StudentArrayController {
     public static void createStudentById(Student[] studentLists) {
         System.out.println("Nhap sinh vien moi: ");
+        Student student = Input.inputCreateStudentArray(studentLists);
 
-        String name = Input.inputName();
-        String birthDate = Input.inputBirthDate();
-        String address = Input.inputAddress();
-        double height = Input.inputHeight();
-        double weight = Input.inputWeight();
-        String studentId = Input.inputStudentIdArray(studentLists);
-        String school = Input.inputSchool();
-        int startYear = Input.inputStartYear();
-        double gpa = Input.inputGpa();
-
-        Student student = new Student(name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), address, height, weight, studentId, school, startYear, gpa);
         if (studentCount >= MAX_STUDENT) {
             System.out.println("Khong the them sinh vien moi vao danh sach.");
             return;
         }
+
         studentLists[studentCount] = student;
         studentCount++;
         System.out.print("\nThem thanh cong sinh vien: \n" + student);
@@ -43,7 +32,6 @@ public class StudentArrayController {
         }
 
         int id = Input.inputID();
-
         if (id > studentCount) {
             System.out.println("Khong co du lieu phu hop.");
             return null;
@@ -68,103 +56,28 @@ public class StudentArrayController {
             return;
         }
 
-        if (foundStudent != null) {
-            boolean shouldUpdate = true;
-            String oldName = foundStudent.getName();
-            String oldBirthDate = foundStudent.getBirthDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String oldAddress = foundStudent.getAddress();
-            double oldHeight = foundStudent.getHeight();
-            double oldWeight = foundStudent.getWeight();
-            String oldStudentId = foundStudent.getStudentId();
-            String oldSchool = foundStudent.getSchool();
-            int oldStartYear = foundStudent.getStartYear();
-            double oldGpa = foundStudent.getGpa();
+        Student originalValues = new Student(foundStudent);
 
-            String name = oldName;
-            String birthDate = oldBirthDate;
-            String address = oldAddress;
-            double height = oldHeight;
-            double weight = oldWeight;
-            String studentId = oldStudentId;
-            String school = oldSchool;
-            int startYear = oldStartYear;
-            double gpa = oldGpa;
-
-            while (true) {
-                Input.showOptionUpdate();
-
-                try {
-                    System.out.print("Lua chon cua ban: ");
-                    int option = sc.nextInt();
-                    sc.nextLine();
-                    if (option == 0) {
-                        break;
-                    } else if (option == 10) {
-                        foundStudent.setName(oldName);
-                        foundStudent.setBirthDate(LocalDate.parse(oldBirthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                        foundStudent.setAddress(oldAddress);
-                        foundStudent.setHeight(oldHeight);
-                        foundStudent.setWeight(oldWeight);
-                        foundStudent.setSchool(oldSchool);
-                        foundStudent.setStudentId(oldStudentId);
-                        foundStudent.setStartYear(oldStartYear);
-                        foundStudent.setGpa(oldGpa);
-                        shouldUpdate = false;
-                        break;
-                    }
-
-                    switch (option) {
-                        case 1:
-                            name = Input.inputName();
-                            break;
-                        case 2:
-                            birthDate = Input.inputBirthDate();
-                            break;
-                        case 3:
-                            address = Input.inputAddress();
-                            break;
-                        case 4:
-                            height = Input.inputHeight();
-                            break;
-                        case 5:
-                            weight = Input.inputWeight();
-                            break;
-                        case 6:
-                            studentId = Input.inputStudentIdArray(studentLists);
-                            break;
-                        case 7:
-                            school = Input.inputSchool();
-                            break;
-                        case 8:
-                            startYear = Input.inputStartYear();
-                            break;
-                        case 9:
-                            gpa = Input.inputGpa();
-                            break;
-                        default:
-                            System.out.println("Lua chon khong ton tai. Vui long nhap lai! ");
-                            break;
-                    }
-                } catch (Exception e) {
-                    System.out.println("Lua chon khong hop le. Vui long chon lai! ");
-                    sc.next();
+        while (true) {
+            Input.showUpdateOption();
+            try {
+                System.out.print("Lua chon cua ban: ");
+                int option = sc.nextInt();
+                if (option == 0) {
+                    break;
+                } else if (option == 10) {
+                    Input.restoreOriginalValues(foundStudent, originalValues);
+                    break;
                 }
-            }
 
-            if (shouldUpdate) {
-                foundStudent.setName(name);
-                foundStudent.setBirthDate(LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                foundStudent.setAddress(address);
-                foundStudent.setHeight(height);
-                foundStudent.setWeight(weight);
-                foundStudent.setSchool(school);
-                foundStudent.setStudentId(studentId);
-                foundStudent.setStartYear(startYear);
-                foundStudent.setGpa(gpa);
+                Input.handleUpdateOptionArray(studentLists, foundStudent, option);
+            } catch (Exception e) {
+                System.out.println("Lua chon khong hop le. Vui long chon lai! ");
+                sc.next();
             }
         }
 
-        System.out.print("Sinh vien sau khi duoc sua: " + foundStudent);
+        System.out.println("Sinh vien sau khi duoc sua: " + foundStudent);
     }
 
     public static void deleteStudentById(Student[] studentLists) {
@@ -185,7 +98,6 @@ public class StudentArrayController {
             studentLists[i] = studentLists[i + 1];
         }
         --studentCount;
-
         System.out.println("Da xoa thanh cong.");
     }
 
@@ -194,6 +106,7 @@ public class StudentArrayController {
             System.out.println("Danh sach sinh vien rong. Khong the hien thi danh sach.");
             return;
         }
+
         System.out.println("\nDanh sach sinh vien: ");
         for (int i = 0; i < studentCount; i++) {
             System.out.println(studentLists[i]);
@@ -205,6 +118,7 @@ public class StudentArrayController {
             System.out.println("Danh sach sinh vien rong. Khong the hien thi % hoc luc sinh vien.");
             return;
         }
+
         Map<LEVEL, Integer> levelMap = new HashMap<>();
         int studentCount = 0;
         for (Student student : studentLists) {
@@ -238,6 +152,7 @@ public class StudentArrayController {
             System.out.println("Danh sach sinh vien rong. Khong the hien thi % diem trung binh.");
             return;
         }
+
         Map<Double, Integer> averageMap = new TreeMap<>();
         int studentCount = 0;
         for (Student student : studentLists) {
@@ -268,7 +183,6 @@ public class StudentArrayController {
         }
 
         String academicAbility = Input.inputLevel();
-
         System.out.println("Danh sach sinh vien co hoc luc '" + academicAbility.toLowerCase() + "': ");
         int count = 0;
         for (Student student : studentLists) {

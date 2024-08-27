@@ -1,5 +1,7 @@
 package utils;
 
+import constant.Constant;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -13,6 +15,7 @@ public class Validation {
                 return false;
             }
         }
+
         return name != null && !name.isEmpty() && !name.isBlank() && name.length() <= MAX_NAME_LENGTH;
     }
 
@@ -36,9 +39,8 @@ public class Validation {
             }
 
             LocalDate date = LocalDate.parse(birthDate, formatter);
-
-            if (date.getYear() < LIMITED_YEAR || date.getYear() > LocalDateTime.now().getYear()) {
-                System.out.println("Nam sinh phai nam trong khoang (1900 - " + LocalDateTime.now().getYear() + "). ");
+            if (date.getYear() < MIN_YEAR || date.getYear() > LocalDateTime.now().getYear()) {
+                System.out.println("Nam sinh phai nam trong khoang (1900 - " + MAX_YEAR + "). ");
                 return false;
             }
         } catch (DateTimeParseException | NumberFormatException e) {
@@ -100,7 +102,7 @@ public class Validation {
     }
 
     public static boolean validateStartYear(int startYear) {
-        return String.valueOf(startYear).length() == 4 && startYear >= LIMITED_YEAR && startYear < LocalDateTime.now().getYear();
+        return String.valueOf(startYear).length() == 4 && startYear >= MIN_YEAR && startYear < MAX_YEAR;
     }
 
     public static boolean validateGpa(double gpa) {

@@ -1,6 +1,6 @@
-Thong tin: id=1, name='dsfsa', birthDate=10/02/2020, address='asfd', height=200.0, weight=200.0
-studentId='123456789a', school='afds', startYear=2020, gpa=0.0, level=Kem
+Thong tin: id=1, name='adfs', birthDate=10/02/2003, address='123abc', height=100.0, weight=100.0
+studentId='1234567890', school='abc', startYear=2020, gpa=10.0, level=Xuat sac
 
-Thong tin: id=3, name='afdsf', birthDate=20/02/2020, address='adfs', height=200.0, weight=200.0
-studentId='123456789z', school='asdf', startYear=2020, gpa=10.0, level=Xuat sac
+Thong tin: id=3, name='Bich Ngoc', birthDate=20/04/2005, address='adsd', height=200.0, weight=200.0
+studentId='1234567891', school='adsf', startYear=2002, gpa=8.0, level=Gioi
 

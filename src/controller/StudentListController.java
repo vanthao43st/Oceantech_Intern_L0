@@ -3,33 +3,23 @@ package controller;
 import constant.LEVEL;
 import model.Student;
 import utils.Input;
-import utils.Validation;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+
 import static constant.Constant.FILENAME;
 
 public class StudentListController {
     public static void createStudentById(ArrayList<Student> studentLists) {
         System.out.println("Nhap sinh vien moi: ");
+        Student student = Input.inputCreateStudentList(studentLists);
 
-        String name = Input.inputName();
-        String birthDate = Input.inputBirthDate();
-        String address = Input.inputAddress();
-        double height = Input.inputHeight();
-        double weight = Input.inputWeight();
-        String studentId = Input.inputStudentIdList(studentLists);
-        String school = Input.inputSchool();
-        int startYear = Input.inputStartYear();
-        double gpa = Input.inputGpa();
-
-        Student student = new Student(name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")), address, height, weight, studentId, school, startYear, gpa);
         studentLists.add(student);
         System.out.print("\nThem thanh cong sinh vien: \n" + student);
     }
@@ -42,7 +32,6 @@ public class StudentListController {
         }
 
         int id = Input.inputID();
-
         if (id > studentLists.size()) {
             System.out.println("Khong co du lieu phu hop.");
             return null;
@@ -67,105 +56,28 @@ public class StudentListController {
             return;
         }
 
-        if (foundStudent != null) {
-            boolean shouldUpdate = true;
-            String oldName = foundStudent.getName();
-            String oldBirthDate = foundStudent.getBirthDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            String oldAddress = foundStudent.getAddress();
-            double oldHeight = foundStudent.getHeight();
-            double oldWeight = foundStudent.getWeight();
-            String oldStudentId = foundStudent.getStudentId();
-            String oldSchool = foundStudent.getSchool();
-            int oldStartYear = foundStudent.getStartYear();
-            double oldGpa = foundStudent.getGpa();
-
-            String name = oldName;
-            String birthDate = oldBirthDate;
-            String address = oldAddress;
-            double height = oldHeight;
-            double weight = oldWeight;
-            String studentId = oldStudentId;
-            String school = oldSchool;
-            int startYear = oldStartYear;
-            double gpa = oldGpa;
-
-            while (true) {
-                Input.showOptionUpdate();
-
-                try {
-                    System.out.print("Lua chon cua ban: ");
-                    int option = sc.nextInt();
-                    sc.nextLine();
-                    if (option == 0) {
-                        break;
-                    } else if (option == 10) {
-                        foundStudent.setName(oldName);
-                        foundStudent.setBirthDate(LocalDate.parse(oldBirthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                        foundStudent.setAddress(oldAddress);
-                        foundStudent.setHeight(oldHeight);
-                        foundStudent.setWeight(oldWeight);
-                        foundStudent.setSchool(oldSchool);
-                        foundStudent.setStudentId(oldStudentId);
-                        foundStudent.setStartYear(oldStartYear);
-                        foundStudent.setGpa(oldGpa);
-                        shouldUpdate = false;
-                        break;
-                    }
-
-                    switch (option) {
-                        case 1:
-                            name = Input.inputName();
-                            break;
-                        case 2:
-                            birthDate = Input.inputBirthDate();
-                            break;
-                        case 3:
-                            address = Input.inputAddress();
-                            break;
-                        case 4:
-                            height = Input.inputHeight();
-                            break;
-                        case 5:
-                            weight = Input.inputWeight();
-                            break;
-                        case 6:
-                            studentId = Input.inputStudentIdList(studentLists);
-                            break;
-                        case 7:
-                            school = Input.inputSchool();
-                            break;
-                        case 8:
-                            startYear = Input.inputStartYear();
-                            break;
-                        case 9:
-                            gpa = Input.inputGpa();
-                            break;
-                        default:
-                            System.out.println("Lua chon khong ton tai. Vui long nhap lai! ");
-                            break;
-                    }
-                } catch (Exception e) {
-                    System.out.println("Lua chon khong hop le. Vui long chon lai! ");
-                    sc.next();
+        Student originalValues = new Student(foundStudent);
+        while (true) {
+            Input.showUpdateOption();
+            try {
+                System.out.print("Lua chon cua ban: ");
+                int option = sc.nextInt();
+                if (option == 0) {
+                    break;
+                } else if (option == 10) {
+                    Input.restoreOriginalValues(foundStudent, originalValues);
+                    break;
                 }
-            }
 
-            if (shouldUpdate) {
-                foundStudent.setName(name);
-                foundStudent.setBirthDate(LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-                foundStudent.setAddress(address);
-                foundStudent.setHeight(height);
-                foundStudent.setWeight(weight);
-                foundStudent.setSchool(school);
-                foundStudent.setStudentId(studentId);
-                foundStudent.setStartYear(startYear);
-                foundStudent.setGpa(gpa);
+                Input.handleUpdateOptionList(studentLists, foundStudent, option);
+            } catch (Exception e) {
+                System.out.println("Lua chon khong hop le. Vui long chon lai! ");
+                sc.next();
             }
         }
 
-        System.out.print("Sinh vien sau khi duoc sua: " + foundStudent);
+        System.out.println("Sinh vien sau khi duoc sua: " + foundStudent);
     }
-
 
     public static void deleteStudentById(ArrayList<Student> studentLists) {
         Student foundStudent = findStudentById(studentLists);
@@ -183,6 +95,7 @@ public class StudentListController {
             System.out.println("Danh sach sinh vien rong. Khong the hien thi danh sach.");
             return;
         }
+
         System.out.println("\nDanh sach sinh vien: ");
         for (Student student : studentLists) {
             System.out.println(student);
@@ -194,6 +107,7 @@ public class StudentListController {
             System.out.println("Danh sach sinh vien rong. Khong the hien thi % hoc luc sinh vien.");
             return;
         }
+
         Map<LEVEL, Integer> levelMap = new HashMap<>();
         int studentCount = 0;
         for (Student student : studentLists) {
@@ -227,6 +141,7 @@ public class StudentListController {
             System.out.println("Danh sach sinh vien rong. Khong the hien thi % diem trung binh.");
             return;
         }
+
         Map<Double, Integer> averageMap = new TreeMap<>();
         int studentCount = 0;
         for (Student student : studentLists) {
@@ -257,7 +172,6 @@ public class StudentListController {
         }
 
         String academicAbility = Input.inputLevel();
-
         System.out.println("Danh sach sinh vien co hoc luc '" + academicAbility.toLowerCase() + "': ");
         int count = 0;
         for (Student student : studentLists) {

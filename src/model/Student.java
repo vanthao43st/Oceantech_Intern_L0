@@ -21,6 +21,15 @@ public class Student extends Person implements Serializable {
         setLevel(gpa);
     }
 
+    public Student(Student other) {
+        super(other);
+        this.studentId = other.studentId;
+        this.school = other.school;
+        this.startYear = other.startYear;
+        this.gpa = other.getGpa();
+        setLevel(this.gpa);
+    }
+
     public String getStudentId() {
         return studentId;
     }

@@ -2,8 +2,9 @@ package utils;
 
 import constant.LEVEL;
 import model.Student;
-
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -15,6 +16,7 @@ public class Input {
     public static String inputName() {
         System.out.print("Nhap ten (< 100 ki tu): ");
         String name = sc.nextLine();
+
         while (!Validation.validateName(name)) {
             System.out.print("Ten khong hop le (Ten khong duoc de trong, khong duoc chua so va < 100 ki tu). Vui long nhap lai! ");
             name = sc.nextLine();
@@ -26,6 +28,7 @@ public class Input {
     public static String inputBirthDate() {
         System.out.print("Nhap ngay sinh (dd/MM/yyyy) trong khoang 1900 - " + LocalDateTime.now().getYear() + ": ");
         String birthDate = sc.nextLine();
+
         while (!Validation.validatebirthDate(birthDate)) {
             System.out.print("Ngay sinh khong hop le (dd/MM/yyyy) trong khoang 1900 - " + LocalDateTime.now().getYear() + ". Vui long nhap lai! ");
             birthDate = sc.nextLine();
@@ -37,6 +40,7 @@ public class Input {
     public static String inputAddress() {
         System.out.print("Nhap dia chi (< 300 ki tu): ");
         String address = sc.nextLine();
+
         while (!Validation.validateAddress(address)) {
             System.out.print("Dia chi khong hop le (dia chi khong de trong va < 300 ki tu). Vui long nhap lai! ");
             address = sc.nextLine();
@@ -46,14 +50,16 @@ public class Input {
     }
 
     public static double inputHeight() {
-        System.out.print("Nhap chieu cao trong khoang 50.0 - 300.0: ");
         double height = 0;
+
+        System.out.print("Nhap chieu cao trong khoang 50.0 - 300.0: ");
         try {
             height = sc.nextDouble();
         } catch (Exception e) {
             System.out.println("Nhap chieu cao khong dung.");
             sc.next();
         }
+
         while (!Validation.validateHeight(height)) {
             System.out.print("Chieu cao khong hop le (50.0 - 300.0). Vui long nhap lai! ");
             try {
@@ -68,14 +74,16 @@ public class Input {
     }
 
     public static double inputWeight() {
-        System.out.print("Nhap can nang trong khoang 5.0 - 1000.0: ");
         double weight = 0;
+
+        System.out.print("Nhap can nang trong khoang 5.0 - 1000.0: ");
         try {
             weight = sc.nextDouble();
         } catch (Exception e) {
             System.out.println("Nhap can nang khong dung.");
             sc.next();
         }
+
         while (!Validation.validateWeight(weight)) {
             System.out.print("Can nang khong hop le (5.0 - 1000.0). Vui long nhap lai! ");
             try {
@@ -85,8 +93,8 @@ public class Input {
                 sc.next();
             }
         }
-        sc.nextLine();
 
+        sc.nextLine();
         return weight;
     }
 
@@ -95,7 +103,7 @@ public class Input {
 
         System.out.print("Nhap ma sinh vien (10 ki tu): ");
         String studentId = sc.nextLine();
-        if (studentLists != null && studentCount > 0){
+        if (studentLists != null && studentCount > 0) {
             for (Student student : studentLists) {
                 if (student != null) {
                     if (studentId.equals(student.getStudentId())) {
@@ -116,7 +124,7 @@ public class Input {
 
             studentId = sc.nextLine();
 
-            if (studentLists != null && studentCount > 0){
+            if (studentLists != null && studentCount > 0) {
                 for (Student student : studentLists) {
                     if (student != null) {
                         if (studentId.equals(student.getStudentId())) {
@@ -133,7 +141,6 @@ public class Input {
 
 
     public static String inputStudentIdList(ArrayList<Student> studentLists) {
-
         boolean checkStudentIdRepeat = false;
 
         System.out.print("Nhap ma sinh vien (10 ki tu): ");
@@ -175,6 +182,7 @@ public class Input {
     public static String inputSchool() {
         System.out.print("Nhap ten truong hoc (< 200 ki tu): ");
         String school = sc.nextLine();
+
         while (!Validation.validateSchool(school)) {
             System.out.print("Ten truong hoc khong hop le (ten truong khong trong va < 200 ki tu). Vui long nhap lai! ");
             school = sc.nextLine();
@@ -184,14 +192,16 @@ public class Input {
     }
 
     public static int inputStartYear() {
-        System.out.print("Nhap nam bat dau hoc dai hoc (1900 - " + LocalDateTime.now().getYear() + "): ");
         int startYear = 0;
+
+        System.out.print("Nhap nam bat dau hoc dai hoc (1900 - " + LocalDateTime.now().getYear() + "): ");
         try {
             startYear = sc.nextInt();
         } catch (Exception e) {
             System.out.println("Nhap nam bat dau khong dung.");
             sc.next();
         }
+
         while (!Validation.validateStartYear(startYear)) {
             System.out.print("Nam bat dau hoc khong hop le (1900 - " + LocalDateTime.now().getYear() + "). Vui long nhap lai! ");
             try {
@@ -206,14 +216,16 @@ public class Input {
     }
 
     public static double inputGpa() {
-        System.out.print("Nhap diem trung binh tich luy (0.0 - 10.0): ");
         double gpa = -1;
+
+        System.out.print("Nhap diem trung binh tich luy (0.0 - 10.0): ");
         try {
             gpa = sc.nextDouble();
         } catch (Exception e) {
             System.out.println("Nhap diem trung binh khong dung.");
             sc.next();
         }
+
         while (!Validation.validateGpa(gpa)) {
             System.out.print("Diem trung binh tich luy khong hop le (0.0 - 10.0). Vui long nhap lai! ");
             try {
@@ -223,17 +235,46 @@ public class Input {
                 sc.next();
             }
         }
-        sc.nextLine();
 
+        sc.nextLine();
         return gpa;
     }
 
+    public static Student inputCreateStudentArray(Student[] studentLists) {
+        String name = Input.inputName();
+        String birthDate = Input.inputBirthDate();
+        String address = Input.inputAddress();
+        double height = Input.inputHeight();
+        double weight = Input.inputWeight();
+        String studentId = Input.inputStudentIdArray(studentLists);
+        String school = Input.inputSchool();
+        int startYear = Input.inputStartYear();
+        double gpa = Input.inputGpa();
+
+        return new Student(name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                address, height, weight, studentId, school, startYear, gpa);
+    }
+
+    public static Student inputCreateStudentList(ArrayList<Student> studentLists) {
+        String name = Input.inputName();
+        String birthDate = Input.inputBirthDate();
+        String address = Input.inputAddress();
+        double height = Input.inputHeight();
+        double weight = Input.inputWeight();
+        String studentId = Input.inputStudentIdList(studentLists);
+        String school = Input.inputSchool();
+        int startYear = Input.inputStartYear();
+        double gpa = Input.inputGpa();
+
+        return new Student(name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
+                address, height, weight, studentId, school, startYear, gpa);
+    }
 
     public static int inputID() {
         Scanner sc = new Scanner(System.in);
+        int id = 0;
 
         System.out.print("Nhap ID cua sinh vien (ID > 0): ");
-        int id = 0;
         try {
             id = sc.nextInt();
             if (id <= 0) {
@@ -260,7 +301,7 @@ public class Input {
         return id;
     }
 
-    public static void showOptionUpdate() {
+    public static void showUpdateOption() {
         /**
          * String name, LocalDate birthDate, String address, double height,
          *                    double weight, String studentId, String school, int startYear, double gpa
@@ -280,10 +321,54 @@ public class Input {
         System.out.println("-------------------------------------------------");
     }
 
+    public static void handleUpdateOptionArray(Student[] studentLists, Student student, int option) {
+        switch (option) {
+            case 1: student.setName(Input.inputName());     break;
+            case 2: student.setBirthDate(LocalDate.parse(Input.inputBirthDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));   break;
+            case 3: student.setAddress(Input.inputAddress());   break;
+            case 4: student.setHeight(Input.inputHeight());     break;
+            case 5: student.setWeight(Input.inputWeight());     break;
+            case 6: student.setStudentId(Input.inputStudentIdArray(studentLists));  break;
+            case 7: student.setSchool(Input.inputSchool());     break;
+            case 8: student.setStartYear(Input.inputStartYear());   break;
+            case 9: student.setGpa(Input.inputGpa());   break;
+            default: System.out.println("Lua chon khong ton tai. Vui long nhap lai! ");     break;
+        }
+    }
+
+
+    public static void handleUpdateOptionList(ArrayList<Student> studentLists, Student student, int option) {
+        switch (option) {
+            case 1: student.setName(Input.inputName());     break;
+            case 2: student.setBirthDate(LocalDate.parse(Input.inputBirthDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));   break;
+            case 3: student.setAddress(Input.inputAddress());   break;
+            case 4: student.setHeight(Input.inputHeight());     break;
+            case 5: student.setWeight(Input.inputWeight());     break;
+            case 6: student.setStudentId(Input.inputStudentIdList(studentLists));   break;
+            case 7: student.setSchool(Input.inputSchool());     break;
+            case 8: student.setStartYear(Input.inputStartYear());   break;
+            case 9: student.setGpa(Input.inputGpa());   break;
+            default: System.out.println("Lua chon khong ton tai. Vui long nhap lai! ");     break;
+        }
+    }
+
+    public static void restoreOriginalValues(Student student, Student oldStudent) {
+        student.setName(oldStudent.getName());
+        student.setBirthDate(oldStudent.getBirthDate());
+        student.setAddress(oldStudent.getAddress());
+        student.setHeight(oldStudent.getHeight());
+        student.setWeight(oldStudent.getWeight());
+        student.setStudentId(oldStudent.getStudentId());
+        student.setSchool(oldStudent.getSchool());
+        student.setStartYear(oldStudent.getStartYear());
+        student.setGpa(oldStudent.getGpa());
+    }
+
     public static String inputLevel() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Nhap hoc luc cua sinh vien (Kem, Yeu, Trung binh, Kha, Gioi, Xuat sac): ");
         String academicAbility = sc.nextLine();
+
         while (!academicAbility.equalsIgnoreCase(LEVEL.KEM.getVietnamese())
                 && !academicAbility.equalsIgnoreCase(LEVEL.YEU.getVietnamese())
                 && !academicAbility.equalsIgnoreCase(LEVEL.TRUNG_BINH.getVietnamese())
