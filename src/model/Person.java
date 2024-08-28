@@ -34,6 +34,10 @@ public class Person {
         Person.idCounter = idCounter;
     }
 
+    public static long getIdCounter() {
+        return idCounter;
+    }
+
     public long getId() {
         return id;
     }

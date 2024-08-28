@@ -1,11 +1,11 @@
 package controller;
 
-import constant.LEVEL;
+import model.Person;
 import model.Student;
 import utils.Input;
+import utils.Utils;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
 import static constant.Constant.FILENAME;
 import static constant.Constant.MAX_STUDENT;
 import static view.ConsoleUI.studentCount;
@@ -13,7 +13,7 @@ import static view.ConsoleUI.studentCount;
 public class StudentArrayController {
     public static void createStudentById(Student[] studentLists) {
         System.out.println("Nhap sinh vien moi: ");
-        Student student = Input.inputCreateStudentArray(studentLists);
+        Student student = Utils.inputCreateStudentArray(studentLists);
 
         if (studentCount >= MAX_STUDENT) {
             System.out.println("Khong the them sinh vien moi vao danh sach.");
@@ -32,15 +32,17 @@ public class StudentArrayController {
         }
 
         int id = Input.inputID();
-        if (id > studentCount) {
+        if (id > Person.getIdCounter()) {
             System.out.println("Khong co du lieu phu hop.");
             return null;
         }
 
         for (Student student : studentLists) {
-            if (student.getId() == id) {
-                System.out.println("Sinh vien: " + student);
-                return student;
+            if (student != null) {
+                if (student.getId() == id) {
+                    System.out.println("Sinh vien: " + student);
+                    return student;
+                }
             }
         }
 
@@ -49,33 +51,13 @@ public class StudentArrayController {
     }
 
     public static void updateStudentById(Student[] studentLists) {
-        Scanner sc = new Scanner(System.in);
         Student foundStudent = StudentArrayController.findStudentById(studentLists);
         if (foundStudent == null) {
             System.out.println("Khong the cap nhat sinh vien.");
             return;
         }
 
-        Student originalValues = new Student(foundStudent);
-
-        while (true) {
-            Input.showUpdateOption();
-            try {
-                System.out.print("Lua chon cua ban: ");
-                int option = sc.nextInt();
-                if (option == 0) {
-                    break;
-                } else if (option == 10) {
-                    Input.restoreOriginalValues(foundStudent, originalValues);
-                    break;
-                }
-
-                Input.handleUpdateOptionArray(studentLists, foundStudent, option);
-            } catch (Exception e) {
-                System.out.println("Lua chon khong hop le. Vui long chon lai! ");
-                sc.next();
-            }
-        }
+        Utils.handleUpdateStudentArray(studentLists, foundStudent);
 
         System.out.println("Sinh vien sau khi duoc sua: " + foundStudent);
     }
@@ -87,18 +69,7 @@ public class StudentArrayController {
             return;
         }
 
-        int deleteIndex = 0;
-        for (int i = 0; i < studentCount; i++) {
-            if (studentLists[i] == foundStudent) {
-                deleteIndex = i;
-            }
-        }
-
-        for (int i = deleteIndex; i < studentCount - 1; i++) {
-            studentLists[i] = studentLists[i + 1];
-        }
-        --studentCount;
-        System.out.println("Da xoa thanh cong.");
+        Utils.handleDeleteStudent(studentLists, foundStudent);
     }
 
     public static void displayStudentList(Student[] studentLists) {
@@ -119,32 +90,7 @@ public class StudentArrayController {
             return;
         }
 
-        Map<LEVEL, Integer> levelMap = new HashMap<>();
-        int studentCount = 0;
-        for (Student student : studentLists) {
-            if (student != null) {
-                studentCount++;
-                if (student.getLevel() != null) {
-                    if (!levelMap.containsKey(student.getLevel())) {
-                        levelMap.put(student.getLevel(), 1);
-                    } else {
-                        levelMap.replace(student.getLevel(), levelMap.get(student.getLevel()) + 1);
-                    }
-                }
-            }
-        }
-
-        if (!levelMap.isEmpty()) {
-            System.out.println("\nTy le hoc luc cua cac sinh vien: ");
-            ArrayList<Map.Entry<LEVEL, Integer>> levelLists = new ArrayList<>(levelMap.entrySet());
-            levelLists.sort(Map.Entry.comparingByValue(Comparator.reverseOrder()));
-            for (Map.Entry<LEVEL, Integer> e : levelLists)
-                if (e.getKey() != null) {
-                    System.out.println(String.format("%s: %.2f%%", e.getKey().getVietnamese(), (double) e.getValue() / studentCount * 100));
-                }
-        } else {
-            System.out.println("Khong co du lieu phu hop.");
-        }
+        Utils.showAcademicAbility(studentLists);
     }
 
     public static void displayAverageRate(Student[] studentLists) {
@@ -153,27 +99,7 @@ public class StudentArrayController {
             return;
         }
 
-        Map<Double, Integer> averageMap = new TreeMap<>();
-        int studentCount = 0;
-        for (Student student : studentLists) {
-            if (student != null) {
-                studentCount++;
-                if (!averageMap.containsKey(student.getGpa())) {
-                    averageMap.put(student.getGpa(), 1);
-                } else {
-                    averageMap.replace(student.getGpa(), averageMap.get(student.getGpa()) + 1);
-                }
-            }
-        }
-
-        if (!averageMap.isEmpty()) {
-            System.out.println("Ty le diem trung binh cua cac sinh vien: ");
-            for (Map.Entry<Double, Integer> e : averageMap.entrySet()) {
-                System.out.println(String.format("%.2f: %.2f%%", e.getKey(), (double) e.getValue() / studentCount * 100));
-            }
-        } else {
-            System.out.println("Du lieu khong hop le.");
-        }
+        Utils.showAverageRate(studentLists);
     }
 
     public static void displayStudentListByAcademicAbility(Student[] studentLists) {
@@ -182,23 +108,7 @@ public class StudentArrayController {
             return;
         }
 
-        String academicAbility = Input.inputLevel();
-        System.out.println("Danh sach sinh vien co hoc luc '" + academicAbility.toLowerCase() + "': ");
-        int count = 0;
-        for (Student student : studentLists) {
-            if (student != null) {
-                if (student.getLevel().getVietnamese().equalsIgnoreCase(academicAbility)) {
-                    System.out.println(student);
-                } else {
-                    count++;
-                }
-            }
-        }
-
-        if (count == studentCount) {
-            System.out.println("Khong co sinh vien nao co hoc luc '" + academicAbility.toLowerCase() + "'.");
-            return;
-        }
+        Utils.handleAcademicAbility(studentLists);
     }
 
     public static void writeToFile(Student[] studentLists) {

@@ -5,8 +5,7 @@ import model.Student;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 import static view.ConsoleUI.studentCount;
 
@@ -240,36 +239,6 @@ public class Input {
         return gpa;
     }
 
-    public static Student inputCreateStudentArray(Student[] studentLists) {
-        String name = Input.inputName();
-        String birthDate = Input.inputBirthDate();
-        String address = Input.inputAddress();
-        double height = Input.inputHeight();
-        double weight = Input.inputWeight();
-        String studentId = Input.inputStudentIdArray(studentLists);
-        String school = Input.inputSchool();
-        int startYear = Input.inputStartYear();
-        double gpa = Input.inputGpa();
-
-        return new Student(name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                address, height, weight, studentId, school, startYear, gpa);
-    }
-
-    public static Student inputCreateStudentList(ArrayList<Student> studentLists) {
-        String name = Input.inputName();
-        String birthDate = Input.inputBirthDate();
-        String address = Input.inputAddress();
-        double height = Input.inputHeight();
-        double weight = Input.inputWeight();
-        String studentId = Input.inputStudentIdList(studentLists);
-        String school = Input.inputSchool();
-        int startYear = Input.inputStartYear();
-        double gpa = Input.inputGpa();
-
-        return new Student(name, LocalDate.parse(birthDate, DateTimeFormatter.ofPattern("dd/MM/yyyy")),
-                address, height, weight, studentId, school, startYear, gpa);
-    }
-
     public static int inputID() {
         Scanner sc = new Scanner(System.in);
         int id = 0;
@@ -299,69 +268,6 @@ public class Input {
 
         sc.nextLine();
         return id;
-    }
-
-    public static void showUpdateOption() {
-        /**
-         * String name, LocalDate birthDate, String address, double height,
-         *                    double weight, String studentId, String school, int startYear, double gpa
-         */
-        System.out.println("\n------------Chon thong tin muon cap nhat------------");
-        System.out.println("1. Cap nhat ten.");
-        System.out.println("2. Cap nhat ngay sinh.");
-        System.out.println("3. Cap nhat dia chi.");
-        System.out.println("4. Cap nhat chieu cao.");
-        System.out.println("5. Cap nhat can nang.");
-        System.out.println("6. Cap nhat ma sinh vien.");
-        System.out.println("7. Cap nhat ten truong.");
-        System.out.println("8. Cap nhat nam bat dau hoc.");
-        System.out.println("9. Cap nhat diem trung binh.");
-        System.out.println("10. Thoat (khong cap nhat du lieu).");
-        System.out.println("0. Xong");
-        System.out.println("-------------------------------------------------");
-    }
-
-    public static void handleUpdateOptionArray(Student[] studentLists, Student student, int option) {
-        switch (option) {
-            case 1: student.setName(Input.inputName());     break;
-            case 2: student.setBirthDate(LocalDate.parse(Input.inputBirthDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));   break;
-            case 3: student.setAddress(Input.inputAddress());   break;
-            case 4: student.setHeight(Input.inputHeight());     break;
-            case 5: student.setWeight(Input.inputWeight());     break;
-            case 6: student.setStudentId(Input.inputStudentIdArray(studentLists));  break;
-            case 7: student.setSchool(Input.inputSchool());     break;
-            case 8: student.setStartYear(Input.inputStartYear());   break;
-            case 9: student.setGpa(Input.inputGpa());   break;
-            default: System.out.println("Lua chon khong ton tai. Vui long nhap lai! ");     break;
-        }
-    }
-
-
-    public static void handleUpdateOptionList(ArrayList<Student> studentLists, Student student, int option) {
-        switch (option) {
-            case 1: student.setName(Input.inputName());     break;
-            case 2: student.setBirthDate(LocalDate.parse(Input.inputBirthDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));   break;
-            case 3: student.setAddress(Input.inputAddress());   break;
-            case 4: student.setHeight(Input.inputHeight());     break;
-            case 5: student.setWeight(Input.inputWeight());     break;
-            case 6: student.setStudentId(Input.inputStudentIdList(studentLists));   break;
-            case 7: student.setSchool(Input.inputSchool());     break;
-            case 8: student.setStartYear(Input.inputStartYear());   break;
-            case 9: student.setGpa(Input.inputGpa());   break;
-            default: System.out.println("Lua chon khong ton tai. Vui long nhap lai! ");     break;
-        }
-    }
-
-    public static void restoreOriginalValues(Student student, Student oldStudent) {
-        student.setName(oldStudent.getName());
-        student.setBirthDate(oldStudent.getBirthDate());
-        student.setAddress(oldStudent.getAddress());
-        student.setHeight(oldStudent.getHeight());
-        student.setWeight(oldStudent.getWeight());
-        student.setStudentId(oldStudent.getStudentId());
-        student.setSchool(oldStudent.getSchool());
-        student.setStartYear(oldStudent.getStartYear());
-        student.setGpa(oldStudent.getGpa());
     }
 
     public static String inputLevel() {
