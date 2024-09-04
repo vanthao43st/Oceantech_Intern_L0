@@ -2,11 +2,9 @@ package utils;
 
 import constant.LEVEL;
 import model.Student;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
-
+import java.util.function.Supplier;
+import static constant.Constant.MAX_YEAR;
 import static view.ConsoleUI.studentCount;
 
 public class Input {
@@ -25,11 +23,11 @@ public class Input {
     }
 
     public static String inputBirthDate() {
-        System.out.print("Nhap ngay sinh (dd/MM/yyyy) trong khoang 1900 - " + LocalDateTime.now().getYear() + ": ");
+        System.out.print("Nhap ngay sinh (dd/MM/yyyy) trong khoang 1900 - " + MAX_YEAR + ": ");
         String birthDate = sc.nextLine();
 
         while (!Validation.validatebirthDate(birthDate)) {
-            System.out.print("Ngay sinh khong hop le (dd/MM/yyyy) trong khoang 1900 - " + LocalDateTime.now().getYear() + ". Vui long nhap lai! ");
+            System.out.print("Ngay sinh khong hop le (dd/MM/yyyy) trong khoang 1900 - " + MAX_YEAR + ". Vui long nhap lai! ");
             birthDate = sc.nextLine();
         }
 
@@ -49,133 +47,63 @@ public class Input {
     }
 
     public static double inputHeight() {
-        double height = 0;
-
         System.out.print("Nhap chieu cao trong khoang 50.0 - 300.0: ");
-        try {
-            height = sc.nextDouble();
-        } catch (Exception e) {
-            System.out.println("Nhap chieu cao khong dung.");
-            sc.next();
-        }
+        Double height = getValidInput(sc::nextDouble, "Nhap chieu cao khong dung.");
 
         while (!Validation.validateHeight(height)) {
             System.out.print("Chieu cao khong hop le (50.0 - 300.0). Vui long nhap lai! ");
-            try {
-                height = sc.nextDouble();
-            } catch (Exception e) {
-                System.out.println("Nhap chieu cao khong dung.");
-                sc.next();
-            }
+            height = getValidInput(sc::nextDouble, "Nhap chieu cao khong dung.");
         }
 
         return height;
     }
 
     public static double inputWeight() {
-        double weight = 0;
-
         System.out.print("Nhap can nang trong khoang 5.0 - 1000.0: ");
-        try {
-            weight = sc.nextDouble();
-        } catch (Exception e) {
-            System.out.println("Nhap can nang khong dung.");
-            sc.next();
-        }
+        Double weight = getValidInput(sc::nextDouble, "Nhap can nang khong dung.");
 
         while (!Validation.validateWeight(weight)) {
             System.out.print("Can nang khong hop le (5.0 - 1000.0). Vui long nhap lai! ");
-            try {
-                weight = sc.nextDouble();
-            } catch (Exception e) {
-                System.out.println("Nhap can nang khong dung.");
-                sc.next();
-            }
+            weight = getValidInput(sc::nextDouble, "Nhap can nang khong dung.");
         }
 
         sc.nextLine();
         return weight;
     }
 
-    public static String inputStudentIdArray(Student[] studentLists) {
-        boolean checkStudentIdRepeat = false;
+    public static String inputStudentId(ArrayList<Student> studentLists) {
+        boolean checkStudentIdRepeat;
 
         System.out.print("Nhap ma sinh vien (10 ki tu): ");
         String studentId = sc.nextLine();
-        if (studentLists != null && studentCount > 0) {
-            for (Student student : studentLists) {
-                if (student != null) {
-                    if (studentId.equals(student.getStudentId())) {
-                        checkStudentIdRepeat = true;
-                        break;
-                    }
-                }
-            }
-        }
+        checkStudentIdRepeat = Input.checkStudentIdDuplicate(studentLists, studentId);
 
         while (!Validation.validateStudentId(studentId) || checkStudentIdRepeat) {
             if (checkStudentIdRepeat) {
                 System.out.print("Ma sinh vien da bi trung. Vui long nhap lai! ");
-                checkStudentIdRepeat = false;
             } else if (!Validation.validateStudentId(studentId)) {
                 System.out.print("Ma sinh vien khong hop le (Ma sinh vien khong trong, khong trung va phai dung 10 ki tu). Vui long nhap lai! ");
             }
 
             studentId = sc.nextLine();
-
-            if (studentLists != null && studentCount > 0) {
-                for (Student student : studentLists) {
-                    if (student != null) {
-                        if (studentId.equals(student.getStudentId())) {
-                            checkStudentIdRepeat = true;
-                            break;
-                        }
-                    }
-                }
-            }
+            checkStudentIdRepeat = Input.checkStudentIdDuplicate(studentLists, studentId);
         }
 
         return studentId;
     }
 
-
-    public static String inputStudentIdList(ArrayList<Student> studentLists) {
-        boolean checkStudentIdRepeat = false;
-
-        System.out.print("Nhap ma sinh vien (10 ki tu): ");
-        String studentId = sc.nextLine();
-        if (studentLists != null && !studentLists.isEmpty()) {
+    public static boolean checkStudentIdDuplicate(ArrayList<Student> studentLists, String studentId) {
+        if (studentLists != null && studentCount > 0) {
             for (Student student : studentLists) {
                 if (student != null) {
                     if (studentId.equals(student.getStudentId())) {
-                        checkStudentIdRepeat = true;
+                        return true;
                     }
                 }
             }
         }
 
-        while (!Validation.validateStudentId(studentId) || checkStudentIdRepeat) {
-            if (checkStudentIdRepeat) {
-                System.out.print("Ma sinh vien da bi trung. Vui long nhap lai! ");
-                checkStudentIdRepeat = false;
-            } else if (!Validation.validateStudentId(studentId)) {
-                System.out.print("Ma sinh vien khong hop le (Ma sinh vien khong trong, khong trung va phai dung 10 ki tu). Vui long nhap lai! ");
-            }
-
-            studentId = sc.nextLine();
-
-            if (studentLists != null && !studentLists.isEmpty()) {
-                for (Student student : studentLists) {
-                    if (student != null) {
-                        if (studentId.equals(student.getStudentId())) {
-                            checkStudentIdRepeat = true;
-                        }
-                    }
-                }
-            }
-        }
-
-        return studentId;
+        return false;
     }
 
     public static String inputSchool() {
@@ -191,48 +119,28 @@ public class Input {
     }
 
     public static int inputStartYear() {
-        int startYear = 0;
+        Integer startYear;
 
-        System.out.print("Nhap nam bat dau hoc dai hoc (1900 - " + LocalDateTime.now().getYear() + "): ");
-        try {
-            startYear = sc.nextInt();
-        } catch (Exception e) {
-            System.out.println("Nhap nam bat dau khong dung.");
-            sc.next();
-        }
+        System.out.print("Nhap nam bat dau hoc dai hoc (1900 - " + MAX_YEAR + "): ");
+        startYear = Input.getValidInput(sc::nextInt, "Nhap nam bat dau khong dung.");
 
         while (!Validation.validateStartYear(startYear)) {
-            System.out.print("Nam bat dau hoc khong hop le (1900 - " + LocalDateTime.now().getYear() + "). Vui long nhap lai! ");
-            try {
-                startYear = sc.nextInt();
-            } catch (Exception e) {
-                System.out.println("Nhap nam bat dau khong dung.");
-                sc.next();
-            }
+            System.out.print("Nam bat dau hoc khong hop le (1900 - " + MAX_YEAR + "). Vui long nhap lai! ");
+            startYear = Input.getValidInput(sc::nextInt, "Nhap nam bat dau khong dung.");
         }
 
         return startYear;
     }
 
     public static double inputGpa() {
-        double gpa = -1;
+        Double gpa;
 
         System.out.print("Nhap diem trung binh tich luy (0.0 - 10.0): ");
-        try {
-            gpa = sc.nextDouble();
-        } catch (Exception e) {
-            System.out.println("Nhap diem trung binh khong dung.");
-            sc.next();
-        }
+        gpa = Input.getValidInput(sc::nextDouble, "Nhap diem trung binh khong dung.");
 
         while (!Validation.validateGpa(gpa)) {
             System.out.print("Diem trung binh tich luy khong hop le (0.0 - 10.0). Vui long nhap lai! ");
-            try {
-                gpa = sc.nextDouble();
-            } catch (Exception e) {
-                System.out.println("Nhap diem trung binh khong dung.");
-                sc.next();
-            }
+            gpa = Input.getValidInput(sc::nextDouble, "Nhap diem trung binh khong dung.");
         }
 
         sc.nextLine();
@@ -244,17 +152,8 @@ public class Input {
         int id = 0;
 
         System.out.print("Nhap ID cua sinh vien (ID > 0): ");
-        try {
-            id = sc.nextInt();
-            if (id <= 0) {
-                System.out.print("ID khong hop le (ID > 0). Vui long nhap lai! ");
-            }
-        } catch (Exception e) {
-            System.out.print("Nhap ID khong dung, ID la so nguyen (ID > 0). Vui long nhap lai! ");
-            sc.next();
-        }
 
-        while (id <= 0) {
+        do {
             try {
                 id = sc.nextInt();
                 if (id <= 0) {
@@ -264,9 +163,8 @@ public class Input {
                 System.out.print("Nhap ID khong dung, ID la so nguyen (ID > 0). Vui long nhap lai! ");
                 sc.next();
             }
-        }
+        } while (id <= 0);
 
-        sc.nextLine();
         return id;
     }
 
@@ -286,5 +184,17 @@ public class Input {
         }
 
         return academicAbility;
+    }
+
+    public static <T> T getValidInput(Supplier<T> inputMethod, String errorMessage) {
+        T input = null;
+        try {
+            input = inputMethod.get();
+        } catch (Exception e) {
+            System.out.println(errorMessage);
+            sc.next();
+        }
+
+        return input;
     }
 }

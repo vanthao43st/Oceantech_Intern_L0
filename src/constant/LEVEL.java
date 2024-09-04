@@ -16,7 +16,4 @@ public enum LEVEL {
     public String getVietnamese() {
         return vietnamese;
     }
-    public void setVietnamese(String vietnamese) {
-        this.vietnamese = vietnamese;
-    }
 }

@@ -1,7 +1,5 @@
 package utils;
 
-import constant.Constant;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -85,12 +83,12 @@ public class Validation {
         return address != null && !address.isEmpty() && !address.isBlank() && address.length() <= MAX_ADDRESS_LENGTH;
     }
 
-    public static boolean validateHeight(double height) {
-        return (height >= MIN_HEIGHT) && (height <= MAX_HEIGHT);
+    public static boolean validateHeight(Double height) {
+        return height!=null && height >= MIN_HEIGHT && height <= MAX_HEIGHT;
     }
 
-    public static boolean validateWeight(double weight) {
-        return (weight >= MIN_WEIGHT) && (weight <= MAX_WEIGHT);
+    public static boolean validateWeight(Double weight) {
+        return weight!=null && weight >= MIN_WEIGHT && weight <= MAX_WEIGHT;
     }
 
     public static boolean validateStudentId(String studentId) {
@@ -101,11 +99,11 @@ public class Validation {
         return school != null && !school.isEmpty() && !school.isBlank() && school.length() <= MAX_SCHOOL_LENGTH;
     }
 
-    public static boolean validateStartYear(int startYear) {
-        return String.valueOf(startYear).length() == 4 && startYear >= MIN_YEAR && startYear < MAX_YEAR;
+    public static boolean validateStartYear(Integer startYear) {
+        return startYear!=null && String.valueOf(startYear).length() == 4 && startYear >= MIN_YEAR && startYear < MAX_YEAR;
     }
 
-    public static boolean validateGpa(double gpa) {
-        return gpa >= MIN_GPA && gpa <= MAX_GPA;
+    public static boolean validateGpa(Double gpa) {
+        return gpa != null && gpa >= MIN_GPA && gpa <= MAX_GPA;
     }
 }
