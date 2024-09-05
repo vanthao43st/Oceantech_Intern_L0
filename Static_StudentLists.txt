@@ -1,0 +1,6 @@
+Thong tin: id=1, name='fdsa', birthDate=10/02/2003, address='afdsa', height=200.0, weight=200.0
+studentId='1234567890', school='afsd', startYear=2020, gpa=8.0, level=Gioi
+
+Thong tin: id=3, name='asfda', birthDate=19/02/2003, address='adfsd', height=202.0, weight=200.0
+studentId='123456789z', school='adfsa', startYear=2021, gpa=7.0, level=kha
+

@@ -13,9 +13,9 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import static constant.Constant.FILENAME;
+import static constant.Constant.DYNAMIC_FILENAME;
 
-public class StudentListController {
+public class DynamicStudentController {
     public static void createStudentById(ArrayList<Student> studentLists) {
         System.out.println("Nhap sinh vien moi: ");
 
@@ -42,15 +42,15 @@ public class StudentListController {
             return null;
         }
 
-        int id = Input.inputID();
-        if (id > Person.getIdCounter()) {
-            System.out.println("Khong co du lieu phu hop.");
-            return null;
-        }
+        Long id = Input.inputID();
+//        if (id > Person.getIdCounter()) {
+//            System.out.println("Khong co du lieu phu hop.");
+//            return null;
+//        }
 
         for (Student student : studentLists) {
             if (student != null) {
-                if (student.getId() == id) {
+                if (student.getId().equals(id)) {
                     System.out.println("Sinh vien: " + student);
                     return student;
                 }
@@ -62,7 +62,7 @@ public class StudentListController {
     }
 
     public static void updateStudentById(ArrayList<Student> studentLists) {
-        Student foundStudent = StudentListController.findStudentById(studentLists);
+        Student foundStudent = DynamicStudentController.findStudentById(studentLists);
         if (foundStudent == null) {
             System.out.println("Khong the cap nhat sinh vien.");
             return;
@@ -181,7 +181,7 @@ public class StudentListController {
             return;
         }
 
-        File file = new File(FILENAME);
+        File file = new File(DYNAMIC_FILENAME);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))) {
             for (Student student : studentLists) {
                 if (student != null) {

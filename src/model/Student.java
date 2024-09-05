@@ -7,12 +7,12 @@ import java.time.LocalDate;
 public class Student extends Person implements Serializable {
     private String studentId;
     private String school;
-    private int startYear;
-    private double gpa;
+    private Integer startYear;
+    private Double gpa;
     private LEVEL level;
 
-    public Student(String name, LocalDate birthDate, String address, double height,
-                   double weight, String studentId, String school, int startYear, double gpa) {
+    public Student(String name, LocalDate birthDate, String address, Double height,
+                   Double weight, String studentId, String school, Integer startYear, Double gpa) {
         super(name, birthDate, address, height, weight);
         this.studentId = studentId;
         this.school = school;
@@ -46,19 +46,19 @@ public class Student extends Person implements Serializable {
         this.school = school;
     }
 
-    public int getStartYear() {
+    public Integer getStartYear() {
         return startYear;
     }
 
-    public void setStartYear(int startYear) {
+    public void setStartYear(Integer startYear) {
         this.startYear = startYear;
     }
 
-    public double getGpa() {
+    public Double getGpa() {
         return gpa;
     }
 
-    public void setGpa(double gpa) {
+    public void setGpa(Double gpa) {
         this.gpa = gpa;
         setLevel(this.gpa);
     }
@@ -67,7 +67,7 @@ public class Student extends Person implements Serializable {
         return level;
     }
 
-    public void setLevel(double gpa) {
+    public void setLevel(Double gpa) {
         if (gpa < 3) {
             this.level = LEVEL.KEM;
         } else if (gpa >= 3 && gpa < 5) {

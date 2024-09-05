@@ -8,7 +8,7 @@ public enum LEVEL {
     GIOI("Gioi"),
     XUAT_SAC("Xuat sac");
 
-    private String vietnamese;
+    private final String vietnamese;
 
     LEVEL(String vietnamese){
         this.vietnamese = vietnamese;

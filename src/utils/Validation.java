@@ -96,7 +96,7 @@ public class Validation {
     }
 
     public static boolean validateSchool(String school) {
-        return school != null && !school.isEmpty() && !school.isBlank() && school.length() <= MAX_SCHOOL_LENGTH;
+        return school != null && !school.isEmpty() && !school.isBlank() && school.length() <= MAX_SCHOOL_NAME_LENGTH;
     }
 
     public static boolean validateStartYear(Integer startYear) {

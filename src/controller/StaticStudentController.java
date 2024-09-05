@@ -10,11 +10,11 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import static constant.Constant.FILENAME;
-import static constant.Constant.MAX_STUDENT;
+
+import static constant.Constant.*;
 import static view.ConsoleUI.studentCount;
 
-public class StudentArrayController {
+public class StaticStudentController {
     public static void createStudentById(Student[] studentLists) {
         System.out.println("Nhap sinh vien moi: ");
 
@@ -50,15 +50,15 @@ public class StudentArrayController {
             return null;
         }
 
-        int id = Input.inputID();
-        if (id > Person.getIdCounter()) {
-            System.out.println("Khong co du lieu phu hop.");
-            return null;
-        }
+        Long id = Input.inputID();
+//        if (id > Person.getIdCounter()) {
+//            System.out.println("Khong co du lieu phu hop.");
+//            return null;
+//        }
 
         for (Student student : studentLists) {
             if (student != null) {
-                if (student.getId() == id) {
+                if (student.getId().equals(id)) {
                     System.out.println("Sinh vien: " + student);
                     return student;
                 }
@@ -71,7 +71,7 @@ public class StudentArrayController {
 
     public static void updateStudentById(Student[] studentLists) {
         Scanner sc = new Scanner(System.in);
-        Student foundStudent = StudentArrayController.findStudentById(studentLists);
+        Student foundStudent = StaticStudentController.findStudentById(studentLists);
         if (foundStudent == null) {
             System.out.println("Khong the cap nhat sinh vien.");
             return;
@@ -197,7 +197,7 @@ public class StudentArrayController {
             return;
         }
 
-        File file = new File(FILENAME);
+        File file = new File(STATIC_FILENAME);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, StandardCharsets.UTF_8))) {
             for (Student student : studentLists) {
                 if (student != null) {

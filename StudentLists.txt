@@ -1,6 +1,0 @@
-Thong tin: id=1, name='fdas', birthDate=10/02/2003, address='afds', height=200.0, weight=200.0
-studentId='123456789a', school='adfsa', startYear=2023, gpa=10.0, level=Xuat sac
-
-Thong tin: id=2, name='Bich Ngoc', birthDate=20/06/2006, address='fdasfd', height=200.0, weight=200.0
-studentId='1234567890', school='adfas', startYear=2021, gpa=9.0, level=Xuat sac
-

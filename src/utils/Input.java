@@ -46,7 +46,7 @@ public class Input {
         return address;
     }
 
-    public static double inputHeight() {
+    public static Double inputHeight() {
         System.out.print("Nhap chieu cao trong khoang 50.0 - 300.0: ");
         Double height = getValidInput(sc::nextDouble, "Nhap chieu cao khong dung.");
 
@@ -58,7 +58,7 @@ public class Input {
         return height;
     }
 
-    public static double inputWeight() {
+    public static Double inputWeight() {
         System.out.print("Nhap can nang trong khoang 5.0 - 1000.0: ");
         Double weight = getValidInput(sc::nextDouble, "Nhap can nang khong dung.");
 
@@ -118,11 +118,9 @@ public class Input {
         return school;
     }
 
-    public static int inputStartYear() {
-        Integer startYear;
-
+    public static Integer inputStartYear() {
         System.out.print("Nhap nam bat dau hoc dai hoc (1900 - " + MAX_YEAR + "): ");
-        startYear = Input.getValidInput(sc::nextInt, "Nhap nam bat dau khong dung.");
+        Integer startYear = Input.getValidInput(sc::nextInt, "Nhap nam bat dau khong dung.");
 
         while (!Validation.validateStartYear(startYear)) {
             System.out.print("Nam bat dau hoc khong hop le (1900 - " + MAX_YEAR + "). Vui long nhap lai! ");
@@ -132,11 +130,9 @@ public class Input {
         return startYear;
     }
 
-    public static double inputGpa() {
-        Double gpa;
-
+    public static Double inputGpa() {
         System.out.print("Nhap diem trung binh tich luy (0.0 - 10.0): ");
-        gpa = Input.getValidInput(sc::nextDouble, "Nhap diem trung binh khong dung.");
+        Double gpa = Input.getValidInput(sc::nextDouble, "Nhap diem trung binh khong dung.");
 
         while (!Validation.validateGpa(gpa)) {
             System.out.print("Diem trung binh tich luy khong hop le (0.0 - 10.0). Vui long nhap lai! ");
@@ -147,15 +143,15 @@ public class Input {
         return gpa;
     }
 
-    public static int inputID() {
+    public static Long inputID() {
         Scanner sc = new Scanner(System.in);
-        int id = 0;
+        Long id = 0L;
 
         System.out.print("Nhap ID cua sinh vien (ID > 0): ");
 
         do {
             try {
-                id = sc.nextInt();
+                id = sc.nextLong();
                 if (id <= 0) {
                     System.out.print("ID khong hop le (ID > 0). Vui long nhap lai! ");
                 }

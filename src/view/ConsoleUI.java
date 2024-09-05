@@ -1,7 +1,7 @@
 package view;
 
-import controller.StudentArrayController;
-import controller.StudentListController;
+import controller.StaticStudentController;
+import controller.DynamicStudentController;
 import model.Person;
 import model.Student;
 import java.util.ArrayList;
@@ -27,12 +27,12 @@ public class ConsoleUI {
                 System.out.print("Lua chon cua ban: ");
                 int option = sc.nextInt();
                 if (option == 0) {
-                    StudentArrayController.writeToFile(studentArrays);
-                    StudentListController.writeToFile(studentLists);
+                    StaticStudentController.writeToFile(studentArrays);
+                    DynamicStudentController.writeToFile(studentLists);
                     System.out.println("Ban da thoat chuong trinh!");
                     break;
                 } else if (option == 1) {
-                    Person.setIdCounter(1);
+                    Person.setIdCounter(1L);
                     System.out.println("Ban da chon mang tinh. Vui long lua chon chuc nang!");
                     while (true) {
                         System.out.println("\n**********Mang tinh**********");
@@ -56,28 +56,28 @@ public class ConsoleUI {
                             }
                             switch (choice) {
                                 case 1:
-                                    StudentArrayController.createStudentById(studentArrays);
+                                    StaticStudentController.createStudentById(studentArrays);
                                     break;
                                 case 2:
-                                    StudentArrayController.findStudentById(studentArrays);
+                                    StaticStudentController.findStudentById(studentArrays);
                                     break;
                                 case 3:
-                                    StudentArrayController.updateStudentById(studentArrays);
+                                    StaticStudentController.updateStudentById(studentArrays);
                                     break;
                                 case 4:
-                                    StudentArrayController.deleteStudentById(studentArrays);
+                                    StaticStudentController.deleteStudentById(studentArrays);
                                     break;
                                 case 5:
-                                    StudentArrayController.displayStudentList(studentArrays);
+                                    StaticStudentController.displayStudentList(studentArrays);
                                     break;
                                 case 6:
-                                    StudentArrayController.displayAcademicAbility(studentArrays);
+                                    StaticStudentController.displayAcademicAbility(studentArrays);
                                     break;
                                 case 7:
-                                    StudentArrayController.displayAverageRate(studentArrays);
+                                    StaticStudentController.displayAverageRate(studentArrays);
                                     break;
                                 case 8:
-                                    StudentArrayController.displayStudentListByAcademicAbility(studentArrays);
+                                    StaticStudentController.displayStudentListByAcademicAbility(studentArrays);
                                     break;
                                 default:
                                     System.out.println("Lua chon khong ton tai. Vui long chon lai!");
@@ -88,7 +88,7 @@ public class ConsoleUI {
                         }
                     }
                 } else if (option == 2) {
-                    Person.setIdCounter(1);
+                    Person.setIdCounter(1L);
                     System.out.println("Ban da chon mang dong. Vui long lua chon chuc nang!");
                     while (true) {
                         System.out.println("\n**********Mang dong**********");
@@ -112,28 +112,28 @@ public class ConsoleUI {
                             }
                             switch (choice) {
                                 case 1:
-                                    StudentListController.createStudentById(studentLists);
+                                    DynamicStudentController.createStudentById(studentLists);
                                     break;
                                 case 2:
-                                    StudentListController.findStudentById(studentLists);
+                                    DynamicStudentController.findStudentById(studentLists);
                                     break;
                                 case 3:
-                                    StudentListController.updateStudentById(studentLists);
+                                    DynamicStudentController.updateStudentById(studentLists);
                                     break;
                                 case 4:
-                                    StudentListController.deleteStudentById(studentLists);
+                                    DynamicStudentController.deleteStudentById(studentLists);
                                     break;
                                 case 5:
-                                    StudentListController.displayStudentList(studentLists);
+                                    DynamicStudentController.displayStudentList(studentLists);
                                     break;
                                 case 6:
-                                    StudentListController.displayAcademicAbility(studentLists);
+                                    DynamicStudentController.displayAcademicAbility(studentLists);
                                     break;
                                 case 7:
-                                    StudentListController.displayAverageRate(studentLists);
+                                    DynamicStudentController.displayAverageRate(studentLists);
                                     break;
                                 case 8:
-                                    StudentListController.displayStudentListByAcademicAbility(studentLists);
+                                    DynamicStudentController.displayStudentListByAcademicAbility(studentLists);
                                     break;
                                 default:
                                     System.out.println("Lua chon khong ton tai. Vui long chon lai!");

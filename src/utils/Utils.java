@@ -73,13 +73,6 @@ public class Utils {
         student.setGpa(oldStudent.getGpa());
     }
 
-//    public static void handleUpdateStudentArray(Student[] studentLists, Student foundStudent) {
-//    }
-
-//    public static void handleUpdateStudentList(ArrayList<Student> studentLists, Student foundStudent) {
-//    }
-
-
     public static int findDeletedStudentIndex(Student[] studentLists, Student foundStudent) {
         int deleteIndex = 0;
         for (int i = 0; i < studentCount; i++) {

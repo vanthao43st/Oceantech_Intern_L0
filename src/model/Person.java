@@ -5,14 +5,14 @@ import java.time.format.DateTimeFormatter;
 
 public class Person {
     private static long idCounter = 1;
-    private long id;
+    private Long id;
     private String name;
     private LocalDate birthDate;
     private String address;
-    private double height;
-    private double weight;
+    private Double height;
+    private Double weight;
 
-    public Person(String name, LocalDate birthDate, String address, double height, double weight) {
+    public Person(String name, LocalDate birthDate, String address, Double height, Double weight) {
         this.id = idCounter++;
         this.name = name;
         this.birthDate = birthDate;
@@ -30,15 +30,15 @@ public class Person {
         this.weight = other.weight;
     }
 
-    public static void setIdCounter(long idCounter) {
+    public static void setIdCounter(Long idCounter) {
         Person.idCounter = idCounter;
     }
 
-    public static long getIdCounter() {
+    public static Long getIdCounter() {
         return idCounter;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -66,19 +66,19 @@ public class Person {
         this.address = address;
     }
 
-    public double getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public double getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
