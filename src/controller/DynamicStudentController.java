@@ -1,7 +1,6 @@
 package controller;
 
 import constant.LEVEL;
-import model.Person;
 import model.Student;
 import utils.Input;
 import utils.Utils;
@@ -43,11 +42,6 @@ public class DynamicStudentController {
         }
 
         Long id = Input.inputID();
-//        if (id > Person.getIdCounter()) {
-//            System.out.println("Khong co du lieu phu hop.");
-//            return null;
-//        }
-
         for (Student student : studentLists) {
             if (student != null) {
                 if (student.getId().equals(id)) {
@@ -82,7 +76,7 @@ public class DynamicStudentController {
                     break;
                 }
 
-                Utils.handleUpdateOptionList(studentLists, foundStudent, option);
+                Utils.handleUpdateOption(studentLists, foundStudent, option);
             } catch (Exception e) {
                 System.out.println("Lua chon khong hop le. Vui long chon lai! ");
                 sc.next();

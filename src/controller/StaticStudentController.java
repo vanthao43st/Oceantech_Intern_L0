@@ -1,7 +1,6 @@
 package controller;
 
 import constant.LEVEL;
-import model.Person;
 import model.Student;
 import utils.Input;
 import utils.Utils;
@@ -24,8 +23,8 @@ public class StaticStudentController {
         double height = Input.inputHeight();
         double weight = Input.inputWeight();
 
-        List<Student> studentList = new ArrayList<>(Arrays.asList(studentLists));
-        String studentId = Input.inputStudentId((ArrayList<Student>) studentList);
+        ArrayList<Student> studentList = new ArrayList<>(Arrays.asList(studentLists));
+        String studentId = Input.inputStudentId(studentList);
 
         String school = Input.inputSchool();
         int startYear = Input.inputStartYear();
@@ -51,11 +50,6 @@ public class StaticStudentController {
         }
 
         Long id = Input.inputID();
-//        if (id > Person.getIdCounter()) {
-//            System.out.println("Khong co du lieu phu hop.");
-//            return null;
-//        }
-
         for (Student student : studentLists) {
             if (student != null) {
                 if (student.getId().equals(id)) {
@@ -71,6 +65,7 @@ public class StaticStudentController {
 
     public static void updateStudentById(Student[] studentLists) {
         Scanner sc = new Scanner(System.in);
+        ArrayList<Student> studentList = new ArrayList<>(Arrays.asList(studentLists));
         Student foundStudent = StaticStudentController.findStudentById(studentLists);
         if (foundStudent == null) {
             System.out.println("Khong the cap nhat sinh vien.");
@@ -90,7 +85,7 @@ public class StaticStudentController {
                     break;
                 }
 
-                Utils.handleUpdateOptionArray(studentLists, foundStudent, option);
+                Utils.handleUpdateOption(studentList, foundStudent, option);
             } catch (Exception e) {
                 System.out.println("Lua chon khong hop le. Vui long chon lai! ");
                 sc.next();
@@ -135,8 +130,8 @@ public class StaticStudentController {
             return;
         }
 
-        List<Student> studentList = new ArrayList<>(Arrays.asList(studentLists));
-        Map<LEVEL, Integer> levelMap = Utils.mapList((ArrayList<Student>) studentList, "level");
+        ArrayList<Student> studentList = new ArrayList<>(Arrays.asList(studentLists));
+        Map<LEVEL, Integer> levelMap = Utils.mapList(studentList, "level");
         if (!levelMap.isEmpty()) {
             System.out.println("\nTy le hoc luc cua cac sinh vien: ");
             ArrayList<Map.Entry<LEVEL, Integer>> levelLists = new ArrayList<>(levelMap.entrySet());
@@ -156,8 +151,8 @@ public class StaticStudentController {
             return;
         }
 
-        List<Student> studentList = new ArrayList<>(Arrays.asList(studentLists));
-        Map<Double, Integer> averageMap = Utils.mapList((ArrayList<Student>) studentList, "gpa");
+        ArrayList<Student> studentList = new ArrayList<>(Arrays.asList(studentLists));
+        Map<Double, Integer> averageMap = Utils.mapList(studentList, "gpa");
         if (!averageMap.isEmpty()) {
             System.out.println("Ty le diem trung binh cua cac sinh vien: ");
             for (Map.Entry<Double, Integer> e : averageMap.entrySet()) {

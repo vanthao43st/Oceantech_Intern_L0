@@ -4,7 +4,6 @@ import model.Student;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 import static view.ConsoleUI.studentCount;
 
 public class Utils {
@@ -29,24 +28,7 @@ public class Utils {
         System.out.println("-------------------------------------------------");
     }
 
-    public static void handleUpdateOptionArray(Student[] studentLists, Student student, int option) {
-        List<Student> studentList = new ArrayList<>(Arrays.asList(studentLists));
-        switch (option) {
-            case 1: student.setName(Input.inputName());     break;
-            case 2: student.setBirthDate(LocalDate.parse(Input.inputBirthDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));   break;
-            case 3: student.setAddress(Input.inputAddress());   break;
-            case 4: student.setHeight(Input.inputHeight());     break;
-            case 5: student.setWeight(Input.inputWeight());     break;
-            case 6: student.setStudentId(Input.inputStudentId((ArrayList<Student>) studentList));  break;
-            case 7: student.setSchool(Input.inputSchool());     break;
-            case 8: student.setStartYear(Input.inputStartYear());   break;
-            case 9: student.setGpa(Input.inputGpa());   break;
-            default: System.out.println("Lua chon khong ton tai. Vui long nhap lai! ");     break;
-        }
-    }
-
-
-    public static void handleUpdateOptionList(ArrayList<Student> studentLists, Student student, int option) {
+    public static void handleUpdateOption(ArrayList<Student> studentLists, Student student, int option) {
         switch (option) {
             case 1: student.setName(Input.inputName());     break;
             case 2: student.setBirthDate(LocalDate.parse(Input.inputBirthDate(), DateTimeFormatter.ofPattern("dd/MM/yyyy")));   break;
